@@ -24,5 +24,9 @@ RUN mkdir /spark && \
     cd /spark && \
     wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1-bin-hadoop1.tgz
 
+RUN tar -xvpf spark-1.1.1-bin-hadoop1.tgz && \
+    mv spark-1.1.1-bin-hadoop1 spark
+
+
 ENV MESOS_JAVA_NATIVE_LIBRARY /usr/local/lib/libmesos-0.21.0.so
 ENV SPARK_HOME /spark
