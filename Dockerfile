@@ -17,5 +17,12 @@ RUN DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]') && \
        
        
 RUN apt-get -y update
+RUN apt-get -y install mesos
 
-RUN apt-get -y install mesos 
+RUN apt-get install wget
+RUN mkdir /spark && \
+    cd /spark && \
+    wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1-bin-hadoop1.tgz
+
+ENV MESOS_JAVA_NATIVE_LIBRARY /usr/local/lib/libmesos-0.21.0.so
+ENV SPARK_HOME /spark
