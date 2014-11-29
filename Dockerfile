@@ -29,3 +29,13 @@ RUN cd / && \
 
 ENV MESOS_JAVA_NATIVE_LIBRARY /usr/local/lib/libmesos-0.21.0.so
 ENV SPARK_HOME /spark
+ENV PYTHONPATH /home/spark/python/:/spark/python/lib/py4j-0.8.2.1-src.zip
+
+
+ADD spark-notebook.sh /spark-notebook.sh
+
+VOLUME ["/notebooks", "/data"]
+
+EXPOSE 8888
+
+CMD /spark-notebook.sh
