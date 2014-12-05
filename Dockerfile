@@ -33,6 +33,7 @@ ENV PYTHONPATH /home/spark/python/:/spark/python/lib/py4j-0.8.2.1-src.zip
 
 
 ADD spark-notebook.sh /spark-notebook.sh
+ADD log4j.properties /spark/conf/log4j.properties
 
 VOLUME ["/notebooks", "/data"]
 
