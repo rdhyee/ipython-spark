@@ -2,10 +2,11 @@ FROM ipython/scipyserver
 
 MAINTAINER Raymond Yee  <raymond.yee@gmail.com>
 
+# outline of this Dockerfile drawn from https://issues.apache.org/jira/browse/SPARK-2691#comment-14194679
+
 RUN apt-get -y update --fix-missing
 RUN apt-get -y install default-jre-headless
 
-# Setup
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF
 
 # Add the repository
@@ -16,7 +17,7 @@ RUN DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]') && \
        tee /etc/apt/sources.list.d/mesosphere.list
        
        
-RUN apt-get -y update
+RUN apt-get -y update --fix-missing
 RUN apt-get -y install mesos
 
 RUN apt-get install wget
@@ -28,15 +29,16 @@ RUN cd / && \
     mv /spark-1.1.1-bin-hadoop1 /spark
 
 ENV MESOS_JAVA_NATIVE_LIBRARY /usr/local/lib/libmesos-0.21.0.so
+
+# http://www.abisen.com/spark-from-ipython-notebook.html
 ENV SPARK_HOME /spark
-ENV PYTHONPATH /home/spark/python/:/spark/python/lib/py4j-0.8.2.1-src.zip
+ENV PYTHONPATH /spark/python/:/spark/python/lib/py4j-0.8.2.1-src.zip
 
 
-ADD spark-notebook.sh /spark-notebook.sh
 ADD log4j.properties /spark/conf/log4j.properties
 
 VOLUME ["/notebooks", "/data"]
 
 EXPOSE 8888
 
-CMD /spark-notebook.sh
+CMD /notebook.sh
