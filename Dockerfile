@@ -32,6 +32,11 @@ RUN cd / && \
 
 ENV MESOS_JAVA_NATIVE_LIBRARY /usr/local/lib/libmesos-0.21.0.so
 
+# apparently need gfortran 
+# https://spark.apache.org/docs/1.2.0/mllib-guide.html#dependencies
+
+RUN apt-get -y install libgfortran3
+
 # http://www.abisen.com/spark-from-ipython-notebook.html
 ENV SPARK_HOME /spark
 ENV PYTHONPATH /spark/python/:/spark/python/lib/py4j-0.8.2.1-src.zip
