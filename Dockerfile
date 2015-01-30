@@ -1,4 +1,4 @@
-FROM ipython/scipyserver
+FROM rdhyee/scipyserver-ansible
 
 MAINTAINER Raymond Yee  <raymond.yee@gmail.com>
 
@@ -46,6 +46,7 @@ ADD log4j.properties /spark/conf/log4j.properties
 
 VOLUME ["/notebooks", "/data"]
 
-EXPOSE 8888
+# 8888 for the notebook, 4040 for the spark web ui
+EXPOSE 8888 4040
 
 CMD /notebook.sh
